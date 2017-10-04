@@ -1,7 +1,8 @@
 class CalcRunsController < ApplicationController
   def index
-    @calc_runs = CalcRun.where(publish: true).all.order(id: :desc)
-    @news = News.where(publish: true).all.order(id: :desc)
+    @calc_runs = CalcRun.where(publish: true).order(id: :desc)
+    @news = News.where(publish: true).order(id: :desc)
+    @links = Link.where(publish: true).order(:label)
   end
 
   def show
@@ -9,15 +10,15 @@ class CalcRunsController < ApplicationController
     @course   = params[:course]
     @filter   = params[:filter]
     @courses  = COURSES
-    if @course == nil #default to Red
-      @course = 'Red'
+    if @course == nil #default to Green
+      @course = 'Green'
     end
     @runners = RunnerGv.joins(:runner)
                          .select('runner_gvs.id, runner_gvs.score, runner_gvs.races, ' +
                                  'runners.firstname, runners.surname, runners.id as runner_id, ' +
                                  'runners.club_description, runners.sex')
                           .where(calc_run_id: @calc_run.id, course: @course)
-                          .where('races >= 2')
+                          .where('races >= 1')
                             .order('runners.sex', score: :desc)
     @clubs = @runners.uniq.pluck(:club_description)
     @clubs.reject! { |c| c.to_s.empty? || c.rstrip.empty? }
@@ -60,8 +61,8 @@ class CalcRunsController < ApplicationController
                                       else 0
                                     end ")
                                     
-    @calc_details = CalcResult.joins(:meet, :runner, :result)
-                      .select('calc_results.course, length, results.climb as climb, controls, course_cgv, ' +
+    @calc_details = CalcResult.joins(:meet, :runner)
+                      .select('calc_results.course, course_cgv, ' +
                               'surname, firstname, runners.id as runner_id, ' +
                               'club_description, calc_results.float_time, score')
                         .where('calc_results.calc_run_id = ? and meets.id = ?',

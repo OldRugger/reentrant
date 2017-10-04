@@ -1,6 +1,7 @@
+
 body {
-  background-color: #fff;
-  color: #333;
+  background-color: #ddd;
+  color: #222;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -8,8 +9,32 @@ body {
   padding: 0;
 }
 .app_header {
+  background-image: image-url("reentrant.png");
+  background-repeat: no-repeat;
   width: 100%;
   background-color: black;
   border-collapse: collapse;
   order-spacing: 0;
+  .title {
+    position: absolute;
+    top: 8px;
+    left: 26px;
+    font-weight: 800;
+    #color: transparent;
+    color: rgba(128, 0, 0, 0.6);
+    font-size:75px;
+    -webkit-background-clip: text;
+    line-height:95px;
+    letter-spacing: -5px;
+
+  }
+  .subtitle{
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: oblique;
+    color: rgba(255, 215, 0, 1);
+    top: 100px;
+    left: 30px;
+  }
 }

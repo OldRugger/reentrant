@@ -26,8 +26,8 @@ class Result < ActiveRecord::Base
         file_type = validate_file_type(row)
         first = false
       end
-      load_result(meet_id, row, file_type)
-      Split.load_results(meet_id, row, file_type)
+      result_loaded = load_result(meet_id, row, file_type)
+      Split.load_results(meet_id, row, file_type) if result_loaded
     end
     Rails.logger.info("\n---> #{recs} records added for meet_id: #{meet_id}\n")
     split_yellow_runners(meet_id)
@@ -40,13 +40,18 @@ class Result < ActiveRecord::Base
 
   def load_result(meet_id, row, file_type)
     runner = Runner.get_runner(row, file_type)
+    if !runner.club_description.include?(" HS")
+      puts "Skipping #{runner.name} #{runner.club_description}"
+      return false
+    end
     runner_time = row['Time']
     place = file_type === 'OR' ? 'Pl' : 'Place'
+    course = normalize_course(row['Course'].capitalize)
     result = Result.new(meet_id: meet_id,
                         runner_id: runner.id,
                         time: runner_time,
                         float_time: get_float_time(runner_time),
-                        course: row['Course'].capitalize,
+                        course: course,
                         length: row['km'],
                         climb: row['m'],
                         controls: row['Course controls'],
@@ -56,6 +61,14 @@ class Result < ActiveRecord::Base
                         source_file_type: file_type,
                         include: true)
     result.save
+  end
+  
+  def normalize_course(course)
+    return 'Green' if ['Greenx','Greeny'].include?(course)
+    return 'Brown' if ['Browny'].include?(course)
+    return 'Orange' if ['Orangex','Orangey'].include?(course)
+    return 'Yellow' if ['Yellowx','Yellowy'].include?(course)
+    course
   end
 
   def validate_file_type(row)

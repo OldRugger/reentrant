@@ -5,13 +5,18 @@ class SplitCourseController < ApplicationController
                                       when 'White'    then 8
                                       when 'Sprint'   then 7
                                       when 'Yellow'   then 5
+                                      when 'Yellowy'  then 5
                                       when 'Yellow-2' then 5
                                       when 'Yellowx'  then 5
                                       when 'Orange'   then 4
                                       when 'Orange-2' then 4
                                       when 'Orangex'  then 4
+                                      when 'Orangey'  then 4
                                       when 'Brown'    then 3
+                                      when 'Browny'   then 3
                                       when 'Green'    then 2
+                                      when 'Greeny'   then 2
+                                      when 'Greenx'   then 2
                                       when 'Red'      then 1
                                       when 'Blue'     then 0
                                       else 0

@@ -184,7 +184,7 @@ class AnalyzeSplits
       if s.time && batman_splits[s.control]
         expected = batman_splits[s.control] / speed
         delta = expected - s.time
-        if (-delta) > (s.time * 0.10)
+        if ((-delta) > (s.time * 0.10)) && ((-delta) > 0.15)
           total_time_lost += delta
           s.lost_time = true
         end

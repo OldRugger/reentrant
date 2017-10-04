@@ -56,7 +56,7 @@
           
           <% end %>
           <tr><td colspan=3 >
-            <%= pie_chart data, :library => {:colors=> colors }, width: "330px", height: "185px" %>
+            <%= pie_chart data, :library => {:colors=> colors, backgroundColor: '#ddd' }, width: "330px", height: "185px" %>
           </td></tr>
         </table>
         <br><br>
@@ -87,7 +87,7 @@
             <% data["#{r.meet_name}(#{r.course[0]}) #{Date::ABBR_MONTHNAMES[r.meet_date[5..6].to_i]}"] = (r.time/r.length)  %>
           <% end %>
           <tr><td colspan = 8 >
-             <%= line_chart data,  title: "Pace" %>
+             <%= line_chart data, library: {backgroundColor: '#ddd'}, title: "Pace" %>
           </td><tr>
         </table>
       </td>

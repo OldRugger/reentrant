@@ -12,7 +12,7 @@
     <td class=all_index>
       <table>
         <tr>
-          <th>Date</th><th>Meet</th><th>Total Starts</th>
+          <th>Date</th><th>Meet</th><th>Total Finishers</th>
           <% @calc_results.each do |cr| %>
             <tr>
               <td class=center><%= cr.date %></td>
@@ -46,7 +46,8 @@
             Splits <%= split_course.id %>
           <% end %>
           <br>
-          Length = <%= d.length %>, Climb = <% d.climb %>, Controls = <%= d.controls %>, CGV = <%= d.course_cgv.round(3) %>
+          <% result = Result.where(meet_id: @meet_id, course: d.course).first %>
+          Length =<%= result.length %>, Climb = <%= result.climb   %>, Controls = <%= result.controls %>, CGV = <%= d.course_cgv.round(3) %>
           <table>
             <tr><th>Place</th><th>Name</th><th>Club</th><th>Time<br>(in minutes)</th><th>Score</th></tr>
           <% save_course = d.course %>

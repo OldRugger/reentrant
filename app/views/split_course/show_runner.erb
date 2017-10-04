@@ -2,7 +2,7 @@
   <hr>
   <table>
     <tr>
-      <th class=calc_run_left_header ><%= link_to 'GAOC Split Analysis', split_course_index_path %></th>
+      <th class=calc_run_left_header ><%= link_to 'Split Analysis', split_course_index_path %></th>
       <th class=calc_run_right_header > <%= @meet.name %> (<%= @meet.date %>) <%= @split_course.course %></th>
    </tr>
   </table>
@@ -170,12 +170,12 @@
   <table class = split_details>
     <tr>
       <td>
-        <%= column_chart split_data, title: "Performance vs expectation by control" %>
+        <%= column_chart split_data, library: {backgroundColor: '#ddd'}, title: "Performance vs expectation by control" %>
       </td>
     </tr>
     <tr>
       <td>
-        <%= line_chart @chart_data, library: {vAxis: {direction: -1}} , title: "Time behind leader - all runners" %>
+        <%= line_chart @chart_data, library: {vAxis: {direction: -1}, backgroundColor: '#ddd'} , title: "Time behind leader - all runners" %>
       </td>
     </tr>
   </table>

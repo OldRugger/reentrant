@@ -2,7 +2,7 @@
   <hr>
   <table>
     <tr>
-      <th class=calc_run_left_header ><%= link_to 'GAOC Split Analysis', split_course_index_path %></b></th>
+      <th class=calc_run_left_header ><%= link_to 'Split Analysis', split_course_index_path %></b></th>
       <th class=calc_run_right_header > <%= @meet.name %> (<%= @meet.date %>) <%= @split_course.course %></th>
    </tr>
   </table>
@@ -38,7 +38,9 @@
         <% end %>
       >
         <td rowspan=2>
-          <%= link_to Runner.find(r.runner_id).name, split_course_show_runner_path(id: @split_course.id, runner_id: r.runner_id) %>
+          <% runner = Runner.find(r.runner_id) %>
+          <%= link_to runner.name, split_course_show_runner_path(id: @split_course.id, runner_id: r.runner_id) %>
+          <i><%= runner.club_description %>
         </td>
         <td rowspan=2 class=time><%= (r.speed * 100).round(2) %></td>
         <td rowspan=2 class=time><%= -r.lost_time.round(2) %></td>
