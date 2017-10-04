@@ -25,11 +25,7 @@
           <tr>
             <td>
               <br>
-              <b><%= link_to 'Splits (experimental)', split_course_index_path %></b>
-              <br><br>
-              <b><%= link_to 'High School Power Rankings', power_ranking_show_path(id: @calc_run.id) %> </b>
-              <br><br>
-			        <p><b> <%= link_to 'All Results', calc_runs_show_all_path(id: @calc_run.id) %> </b>
+              <p><b> <%= link_to 'All Results', calc_runs_show_all_path(id: @calc_run.id) %> </b>
  			        <p><%= link_to 'Back', :back %>
               <p><%= link_to 'Home', calc_runs_path %>
             </td>
@@ -68,7 +64,7 @@
       </td>
       <td class=index>
         <table>
-          <tr><th>Filter Results by Club</th></tr>
+          <tr><th>Filter Results by School</th></tr>
           <tr>
             <td class= filter>
               <select id='club_filter'>

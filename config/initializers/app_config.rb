@@ -2,5 +2,5 @@ APP_CONFIG = YAML.load(ERB.new(File.read("#{Rails.root}/config/config.yml")).res
 APP_CONFIG.symbolize_keys!
 BUILD = `git rev-parse --short HEAD`
 APP_VERSION = '2.0.0'
-COURSES = ['Red', 'Green', 'Brown', 'Orange', 'Yellow', 'Sprint'].freeze
+COURSES = ['Green', 'Brown', 'Orange', 'Yellow', 'Sprint'].freeze
 FINAL_SPLIT = 999

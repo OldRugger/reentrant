@@ -10,15 +10,23 @@
 <body>
   <table class=app_header>
     <tr >
-      <td>
-        <%= link_to calc_runs_path do %>
-          <%= image_tag "GAOClogo.jpg", :style => "display: block;" %>
-        <% end %>
+      <td >
+        <div class= "container">
+          <%= link_to calc_runs_path do %>
+            <% image_tag "reentrant.png", :style => "display: block;" %>
+          <% end %>
+          <%= link_to calc_runs_path do %>
+            <div class="title">
+              Reentrant
+            </div>
+            <div class="subtitle">
+              Reporting on Georgia High School Orienteering
+            </div>
+          <% end %>
+
+        </div>
+        
       </td>
-    </tr>
-    <tr bgcolor=#A6BA65>
-      <td height=30><b>&nbsp;GAOC Local Meet Ranking System</b></td>
-      <td align=right height=30>version: <%= "#{APP_VERSION}" %>, build: <%= link_to "#{BUILD}","https://github.com/OldRugger/orank/tree/#{BUILD}" %>&nbsp</td>
     </tr>
   </table>
 

@@ -8,7 +8,8 @@ class Split < ActiveRecord::Base
   def load_results(meet_id, row, file_type)
     return if row['Classifier'] != '0'
     course = row['Course'].capitalize
-    controls = Result.where(meet_id: meet_id, course: course).first.controls
+    normalized_course = normalize_course(course)
+    controls = Result.where(meet_id: meet_id, course: normalized_course).first.controls
     split_course = SplitCourse.find_or_create_by(meet_id: meet_id,
                                                  controls: controls,
                                                  course: course)
@@ -18,6 +19,15 @@ class Split < ActiveRecord::Base
       load_or_splits(split_course, row)
     end
   end
+    
+  def normalize_course(course)
+    return 'Green' if ['Greenx','Greeny'].include?(course)
+    return 'Brown' if ['Browny'].include?(course)
+    return 'Orange' if ['Orangex','Orangey'].include?(course)
+    return 'Yellow' if ['Yellowx','Yellowy'].include?(course)
+    course
+  end
+
   
   def load_oe0014_splits(split_course, row)
     split_runner = get_split_runner(split_course, row, 'OE0014')

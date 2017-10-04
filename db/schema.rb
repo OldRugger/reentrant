@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630225934) do
+ActiveRecord::Schema.define(version: 20170925230959) do
 
   create_table "calc_results", force: :cascade do |t|
     t.float    "float_time"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(version: 20170630225934) do
     t.datetime "updated_at", null: false
     t.string   "status"
     t.integer  "calc_time"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.string   "label"
+    t.string   "url"
+    t.boolean  "publish"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meets", force: :cascade do |t|

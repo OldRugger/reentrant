@@ -74,19 +74,13 @@ class CalculateResults
     process_course_results(meet.id,course).abs
   end
   
-
-  # If there are three of each gender, calcs will be by gender.
-  # def get_course_by_gender(meet,course)
-  #   @female_runners = Result.where(meet: meet.id, course: course, gender: 'F', classifier: '0').count
-  #   @female_runners >= 2 &&
-  #   Result.where(meet: meet.id, course: course, gender: 'M', classifier: '0').count >= 2
-  # end
-  
   def process_course_results(meet_id,course)
+    puts "process_course_results #{meet_id} #{course}"
     runner_entry = Struct.new(:runner_id, :runner_time, :result_id)
     runner_times = []
     score_list   = []
     results = get_course_results(meet_id,course)
+    puts "----- results #{results.count}"
     results.each do |result|
       # if valid result
       if result.classifier == 0
@@ -97,7 +91,6 @@ class CalculateResults
     end
     # return 0 if score_list.size < 3
     course_cgv = get_harmonic_mean(score_list)
-    # puts "#course cgv #{course_cgv}"
     delta = update_meet_course_results(meet_id, results, course_cgv, course, runner_times)
   end
   
@@ -243,7 +236,7 @@ class CalculateResults
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: course, 'runners.sex': gender)
                   .where("runners.club_description like '% HS'")
-                    .where('races > 1')
+                    .where('races >= 1')
                       .order(score: :desc)
     count = results.count
     return if count == 0
@@ -282,7 +275,7 @@ class CalculateResults
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
                  .where("runners.club_description like '% HS'")
-                   .where("races > 1")
+                   .where("races >= 1")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
       calc_schools_ranking(school, courses, ranking_class)
@@ -290,15 +283,15 @@ class CalculateResults
   end
   
   def calc_schools_ranking(school, courses, ranking_class)
-    puts "exclude #{@exclude}"
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: courses, 'runners.club_description': school)
-                  .where('races > 1')
+                  .where('races >= 1')
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
                         .limit(5)
-    
+
     # results.where.not(runner_id: @exclude)
+    puts "#{school} #{ranking_class} #{results.count}"
     return if results.count == 0
     team_score = 0
     pw = PowerRanking.new(calc_run_id: @calc_run_id, school: school, ranking_class: ranking_class)

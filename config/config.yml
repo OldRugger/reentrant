@@ -1,6 +1,5 @@
 defaults: &defaults
-   title:         'GAOC Ranking System'
-   header_image:  'GAOClogo.jpg'
+   title:         "Reentrant - news that's fit"
    admin_pwd:     <%= ENV["ADMIN_PWD"] || 'not_very_secret' %>
 
 development:
