@@ -11,8 +11,11 @@ class Split < ActiveRecord::Base
     normalized_course = normalize_course(course)
     controls = Result.where(meet_id: meet_id, course: normalized_course).first.controls
     split_course = SplitCourse.find_or_create_by(meet_id: meet_id,
-                                                 controls: controls,
                                                  course: course)
+    if split_course.controls == nil
+      split_course.controls = controls
+      split_course.save
+    end
     if file_type == 'OE0014'
       load_oe0014_splits(split_course, row)
     elsif file_type == 'OR'
@@ -77,6 +80,14 @@ class Split < ActiveRecord::Base
     punch = row.find_index { |k,_| k== 'Punch1' }
     split_course.controls.times do |i|
       control = i + 1
+      if row[punch] == nil && row['Pl'] == "1"
+        # verify control count
+        if i != split_course.controls
+          puts "updating control count for #{split_course.course} to #{i}"
+          split_course.controls = i
+          split_course.save
+        end
+      end
       break if row[punch] == nil
       current_time = get_float_time(row[punch])
       time = current_time - last_control
