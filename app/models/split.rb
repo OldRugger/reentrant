@@ -84,7 +84,6 @@ class Split < ActiveRecord::Base
         # verify control count
         if i != split_course.controls
           puts "updating control count for #{split_course.course} to #{i}"
-          binding.pry
           split_course.controls = i
           split_course.save
         end
