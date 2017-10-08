@@ -34,7 +34,7 @@
         <%= link_to Runner.find(@split_runner.runner_id).name, split_course_show_runner_all_path(runner_id: @split_runner.runner_id) %>
       </td>
       <td rowspan=3 class=time><%= (@split_runner.speed * 100).round(2) %></td>
-      <td rowspan=3 class=time><%= -@split_runner.lost_time.round(2) %></td>
+      <td rowspan=3 class=time><%= float_time_to_hhmmss(-@split_runner.lost_time) %></td>
     </tr>
     <tr>
       <% @split_course.controls.times do |i| %>
@@ -51,7 +51,7 @@
               class = "time"
           <% end %>
         >
-          <%= s.current_time.round(2) %>(<%= s.current_place %>)
+          <%= float_time_to_hhmmss(s.current_time) %>(<%= s.current_place %>)
         </td>
       <% end %>
       <td
@@ -67,7 +67,7 @@
         <% end %>
       
       >
-        <%= Split.where(split_runner_id: @split_runner.id, control: FINAL_SPLIT).first.current_time.round(2) %>
+        <%= float_time_to_hhmmss(Split.where(split_runner_id: @split_runner.id, control: FINAL_SPLIT).first.current_time) %>
       </td>
     </tr>
     <tr>
@@ -78,7 +78,7 @@
         <% split_data[control] = s.time_diff %>
         <% if s.lost_time %>
           <td class = "lost_time">
-            <span title="lost time: <%= -s.time_diff.round(2)%>" ><%= s.time.round(2) %>(<%= s.split_place %>)</span>
+            <span title="lost time: <%= float_time_to_hhmmss(-s.time_diff)%>" ><%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)</span>
           </td>
         <% else %>
           <td
@@ -93,7 +93,7 @@
               class = "time"f
             <% end %>
           >
-            <%= s.time.round(2) %>(<%= s.split_place %>)
+            <%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)
           </td>
         <% end %>
         </td>
@@ -102,7 +102,7 @@
       <% split_data['Final'] = s.time_diff %>
       <% if s.lost_time %>
         <td class = "lost_time">
-          <span title="lost time: <%= -s.time_diff.round(2)%>" ><%= s.time.round(2) %>(<%= s.split_place %>)</span>
+          <span title="lost time: <%= float_time_to_hhmmss(-s.time_diff)%>" ><%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)</span>
         </td>
       <% else %>
         <td
@@ -117,7 +117,7 @@
             class = "time"
           <% end %>
         >
-          <%= s.time.round(2) %>(<%= s.split_place %>)
+          <%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)
         </td>
       <% end %>
     </tr>
@@ -134,10 +134,10 @@
         <td rowspan=2 class=time></td>
         <% @split_course.controls.times do |i| %>
           <td class= time>
-            <%= Split.where(split_runner_id: hero_runner.id, control: (i+1)).first.current_time.round(2) %>
+            <%= float_time_to_hhmmss(Split.where(split_runner_id: hero_runner.id, control: (i+1)).first.current_time) %>
           </td>
         <% end %>
-        <td class = time><%= Split.where(split_runner_id: hero_runner.id, control: FINAL_SPLIT).first.current_time.round(2) %>
+        <td class = time><%= float_time_to_hhmmss(Split.where(split_runner_id: hero_runner.id, control: FINAL_SPLIT).first.current_time) %>
       </tr>
       <tr
         <% if hero.firstname == 'Superman' %>
@@ -146,10 +146,10 @@
       >
         <% @split_course.controls.times do |i| %>
           <td class = time>
-            <%= Split.where(split_runner_id: hero_runner.id, control: (i+1)).first.time.round(2) %>
+            <%= float_time_to_hhmmss(Split.where(split_runner_id: hero_runner.id, control: (i+1)).first.time) %>
           </td>
         <% end %>
-        <td class = time><%= Split.where(split_runner_id: hero_runner.id, control: FINAL_SPLIT).first.time.round(2) %>
+        <td class = time><%= float_time_to_hhmmss(Split.where(split_runner_id: hero_runner.id, control: FINAL_SPLIT).first.time) %>
        
       </tr>
     <% end %>

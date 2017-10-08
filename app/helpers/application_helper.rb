@@ -25,5 +25,26 @@ module ApplicationHelper
       return 0
     end
   end
+  
+  # Convert 00:00:00 to float min
+  def float_time_to_hhmmss(float_time)
+    return if float_time.class == String
+    if (float_time && float_time > 0)
+      min = float_time.floor
+      mm = (min % 60).floor
+      hh = (min / 60).floor
+      ss = ((float_time - min) * 60).round
+
+      if float_time < 10.0
+        return "#{format('%01d', mm)}:#{format('%02d', ss)}"
+      elsif float_time < 60.0
+        return "#{format('%02d', mm)}:#{format('%02d', ss)}"
+      else
+        return "#{hh.to_s}:#{format('%02d', mm)}:#{format('%02d', ss)}"
+      end
+    else
+      return ""
+    end
+  end
 
 end
