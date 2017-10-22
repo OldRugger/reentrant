@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925230959) do
+ActiveRecord::Schema.define(version: 20171022160007) do
 
   create_table "calc_results", force: :cascade do |t|
     t.float    "float_time"
@@ -172,8 +172,12 @@ ActiveRecord::Schema.define(version: 20170925230959) do
     t.integer  "split_place"
     t.float    "time_diff"
     t.boolean  "lost_time"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "diff_time_str"
+    t.string   "time_diff_str"
+    t.string   "time_str"
+    t.string   "current_time_str"
   end
 
   add_index "splits", ["split_runner_id"], name: "index_splits_on_split_runner_id"
