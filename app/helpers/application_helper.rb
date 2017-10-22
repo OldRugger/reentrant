@@ -26,7 +26,7 @@ module ApplicationHelper
     end
   end
   
-  # Convert 00:00:00 to float min
+  # convert float time to string
   def float_time_to_hhmmss(float_time)
     return if float_time.class == String
     if (float_time && float_time > 0)

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bootstrap-datepicker-rails'
+gem 'rails-bootstrap-tabs'
 gem 'carrierwave'
 gem 'chartkick'
 gem 'jquery-rails'

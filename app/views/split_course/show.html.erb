@@ -58,7 +58,7 @@
                 class = "time"
             <% end %>
           >
-            <%= float_time_to_hhmmss(s.current_time) %>(<%= s.current_place %>)
+            <%= s.current_time_str %>(<%= s.current_place %>)
           </td>
         <% end %>
         <td
@@ -74,7 +74,7 @@
           <% end %>
         
         >
-          <%= float_time_to_hhmmss(Split.where(split_runner_id: r.id, control: FINAL_SPLIT).first.current_time) %>
+          <%= Split.where(split_runner_id: r.id, control: FINAL_SPLIT).first.current_time_str %>
         </td>
       </tr>
       <tr
@@ -90,7 +90,7 @@
           <% s = Split.where(split_runner_id: r.id, control: (i+1)).first %>
           <% if s.lost_time %>
             <td class = "split lost_time">
-              <span title="lost time: <%= float_time_to_hhmmss(-s.time_diff)%>" ><%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)</span>
+              <span title="lost time: <%= s.time_diff_str %>" ><%= s.time_str %>(<%= s.split_place %>)</span>
             </td>
           <% else %>
             <td
@@ -105,7 +105,7 @@
                 class = "split time"
               <% end %>
             >
-              <%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)
+              <%= s.time_str %>(<%= s.split_place %>)
             </td>
           <% end %>
           </td>
@@ -114,7 +114,7 @@
         <% s = Split.where(split_runner_id: r.id, control: FINAL_SPLIT).first %>
         <% if s.lost_time %>
           <td class = "split lost_time">
-            <span title="lost time: <%= float_time_to_hhmmss(-s.time_diff) %>" ><%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)</span>
+            <span title="lost time: <%= s.time_diff_str %>" ><%= s.time_str %>(<%= s.split_place %>)</span>
           </td>
         <% else %>
           <td
@@ -129,7 +129,7 @@
               class = "split time"
             <% end %>
           >
-            <%= float_time_to_hhmmss(s.time) %>(<%= s.split_place %>)
+            <%= s.time_str %>(<%= s.split_place %>)
           </td>
         <% end %>
       </tr>

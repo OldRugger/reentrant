@@ -13,4 +13,60 @@
  *= require bootstrap-datepicker
  *= require_tree .
  *= require_self
-  */
+ */
+.container {
+  padding-right: 15px;
+  padding-left: 0px;
+  margin-right: auto;
+  margin-left: unset;
+}
+
+a {
+  color: #04a;
+  cursor: auto;
+  text-decoration: underline;
+}
+a:visited {
+  color: #551a8b;
+}
+a:hover {
+  text-decoration: none;
+}
+
+
+th {
+    font-weight: bold;
+    text-align: -webkit-center;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+h4 {
+    display: block;
+    font-size: 1.0em;
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+    font-size: 13px;
+}

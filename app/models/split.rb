@@ -1,5 +1,7 @@
+include ApplicationHelper
 class Split < ActiveRecord::Base
   belongs_to :split_runner
+  before_save :set_time_stings
   
   def self.load_results(meet_id, row, file_type)
     self.new.load_results(meet_id, row, file_type)
@@ -117,6 +119,17 @@ class Split < ActiveRecord::Base
     else
       return 0
     end
+  end
+  
+  # set time values for display
+  def set_time_stings
+    if self.time_diff < 0
+      self.time_diff_str = float_time_to_hhmmss(-self.time_diff)
+    else
+      self.time_diff_str = float_time_to_hhmmss(self.time_diff)
+    end
+    self.current_time_str = float_time_to_hhmmss(self.current_time)
+    self.time_str = float_time_to_hhmmss(self.time)
   end
 
 end
