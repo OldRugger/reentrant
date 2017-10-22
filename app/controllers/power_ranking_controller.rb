@@ -1,7 +1,12 @@
 class PowerRankingController < ApplicationController
   def show
     @calc_run_id = params[:id]
-    @calc_run = CalcRun.find(@calc_run_id)
+    if @calc_run_id == nil
+      @calc_run = CalcRun.where(publish: true).order(:id).last
+      @calc_run_id = @calc_run.id
+    else
+      @calc_run = CalcRun.find(@calc_run_id)
+    end
     @ranking_classes = ['Varsity', 'Junior Varsity', 'Intermediate']
     @rankings_hash = Hash.new
     @runners_hash = Hash.new
