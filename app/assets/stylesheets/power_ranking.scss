@@ -1,6 +1,27 @@
 // Place all the styles related to the power_ranking controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.nav-tabs {
+  border-color: #aaa;
+  .nav-link {
+    background-color: #eee;
+    font-weight: bold;
+    font-size: 14px;
+    border-color: #aaa;
+  }
+  .nav-link.active {
+    background-color: #ddd;
+    border-color: #aaa #aaa #ddd;
+  }
+
+}
+.active {
+  background-color: #ddd;
+  border-color: #aaa #aaa #ddd;
+}
+
+
 .hs_power {
   width:100%;
 }
