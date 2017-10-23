@@ -123,13 +123,15 @@ class Split < ActiveRecord::Base
   
   # set time values for display
   def set_time_stings
-    if self.time_diff < 0
-      self.time_diff_str = float_time_to_hhmmss(-self.time_diff)
-    else
-      self.time_diff_str = float_time_to_hhmmss(self.time_diff)
+    if self.time_diff
+      if self.time_diff < 0
+        self.time_diff_str = float_time_to_hhmmss(-self.time_diff)
+      else
+        self.time_diff_str = float_time_to_hhmmss(self.time_diff)
+      end
     end
-    self.current_time_str = float_time_to_hhmmss(self.current_time)
-    self.time_str = float_time_to_hhmmss(self.time)
+    self.current_time_str = float_time_to_hhmmss(self.current_time) if self.current_time
+    self.time_str = float_time_to_hhmmss(self.time) if self.time
   end
 
 end
