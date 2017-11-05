@@ -11,7 +11,7 @@ class PowerRankingController < ApplicationController
       @rankings_hash[ranking_class] = rankings
       rankings.each do |ranking|
         runners = RankingAssignment.joins(:runner, :runner_gv)
-                    .select('runners.id, runners.firstname, runners.surname, normalized_score')
+                    .select('runners.id, runners.firstname, runners.surname, normalized_score, course')
                       .where(power_ranking_id: ranking.id)
         @runners_hash["#{ranking.school}:#{ranking_class}"] = runners
         
