@@ -288,7 +288,7 @@ class CalculateResults
                   .where('races >= 1')
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
-                        .limit(5)
+                        .limit(7)
 
     # results.where.not(runner_id: @exclude)
     puts "#{school} #{ranking_class} #{results.count}"
@@ -296,10 +296,14 @@ class CalculateResults
     team_score = 0
     pw = PowerRanking.new(calc_run_id: @calc_run_id, school: school, ranking_class: ranking_class)
     pw.save
+    runner_count = 0
     results.each do |r|
+      next if @exclude.include?(r.runner_id)
+      runner_count += 1
       team_score += r.normalized_score
       RankingAssignment.new(power_ranking_id: pw.id, runner_id: r.runner_id, runner_gv_id: r.id).save
       @exclude << r.runner_id
+      break if runner_count == 5
     end
     if team_score > 0
       pw.total_score = team_score
