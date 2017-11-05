@@ -30,7 +30,11 @@
                       ,&nbsp
                     <% end %>
                     <%= link_to "#{r.firstname} #{r.surname}", runners_show_path(id: r.id, calc_id: @calc_run_id) %>
-                    (<%= r.normalized_score.round(3) %>)
+                    <% if ranking_class == 'Varsity' && r.course != 'Green' %>
+                    (<%= r.normalized_score.round(2) %> <i><%= r.course %>)
+                    <% else %>
+                      (<%= r.normalized_score.round(2) %>)
+                    <% end %>
                   <% end %>
                   <br><br>
                 <td>
@@ -49,6 +53,7 @@
       A school’s “Power” ranking is the combined score of the school’s top 5 runners in each category: Varsity, Junior Varsity, Intermediate<br>
       <br>
       High School ranking scores are normalized by course and gender.  The average of the top 10% (minimum of 2) of the runners is set to 100.  The runners scores are then normalized to the calculated 100 score.
+      If only one runner is ranked for that gender course combination, the runner's score will be normalized to 100.0.
       <br><br>
       <b><i>Varsity</id></b><br>
       A school's top 5 ranking scores on Red, Green or Brown. If a runner has ranking scores on multiple courses, only their highest score is included.
