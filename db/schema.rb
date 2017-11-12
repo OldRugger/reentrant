@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022160007) do
+ActiveRecord::Schema.define(version: 20171106001717) do
+
+  create_table "badges", force: :cascade do |t|
+    t.integer  "runner_id"
+    t.string   "season"
+    t.string   "badge_type"
+    t.string   "class_type"
+    t.string   "value"
+    t.string   "text"
+    t.integer  "sort"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "badges", ["runner_id"], name: "index_badges_on_runner_id"
 
   create_table "calc_results", force: :cascade do |t|
     t.float    "float_time"
@@ -174,7 +188,6 @@ ActiveRecord::Schema.define(version: 20171022160007) do
     t.boolean  "lost_time"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.string   "diff_time_str"
     t.string   "time_diff_str"
     t.string   "time_str"
     t.string   "current_time_str"

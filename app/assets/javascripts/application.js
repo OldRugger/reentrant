@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require chartkick
+//= require_tree .
 (document).ready(function(){
   var mouseX, mouseY;
   var ww = $( window ).width();
