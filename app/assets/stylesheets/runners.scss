@@ -29,3 +29,87 @@
     padding-right: 10px;
   }
 }
+/* CSS for badges */
+.round.expert {
+  background-image: url(captain_badge.gif);
+  background-size: cover;
+  height: 90px;
+  width: 90px;
+  text-align: center;
+}
+.round.expert.float{
+  float:left;
+  background-image: url(captain_badge.gif);
+  background-size: cover;
+  height: 90px;
+  width: 90px;
+  text-align: center;
+}
+.season.expert {
+  font-size: 10px;
+  font-weight: bold;
+  color: #ccc;
+}
+.season {
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+
+.round {
+    margin: 20px;
+    display: inline-block;
+    height: 90px;
+    width: 90px;
+    -moz-border-radius: 45x;
+    border-radius: 45px;
+    background-color: #ccc;
+    color: #222;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 0px 6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 0px 6px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 0px 6px rgba(0,0,0,0.75);
+}
+
+.round.green {
+    color: green;
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px green;
+    -moz-box-shadow: 0px 0px 0px 6px green;
+    box-shadow: 0px 0px 0px 6px green;
+}
+.round.brown {
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px brown;
+    -moz-box-shadow: 0px 0px 0px 6px brown;
+    box-shadow: 0px 0px 0px 6px brown;
+}
+.round.orange {
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px orange;
+    -moz-box-shadow: 0px 0px 0px 6px orange;
+    box-shadow: 0px 0px 0px 6px orange;
+}
+.round.yellow {
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px yellow;
+    -moz-box-shadow: 0px 0px 0px 6px yellow;
+    box-shadow: 0px 0px 0px 6px yellow;
+}
+.round.sprint {
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px purple;
+    -moz-box-shadow: 0px 0px 0px 6px purple;
+    box-shadow: 0px 0px 0px 6px purple;
+}
+.letter {
+  padding-top: 0px;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+        // 	<br>
+        //     <div class="round hollow gold">
+        //       <span class="season">17-18</span><br>
+        //       <span class="badge letter">E</span>
+        //     </div>

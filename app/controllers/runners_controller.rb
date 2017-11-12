@@ -13,5 +13,7 @@ class RunnersController < ApplicationController
                           .order('meets.date')
     @rankings = RunnerGv.select('course, score, races')
                   .where(calc_run_id: @calc_run.id, runner_id: @runner.id)
+    @badges = Badge.where(runner_id: @runner.id).order(season: :desc).order(:sort)
+
   end
 end
