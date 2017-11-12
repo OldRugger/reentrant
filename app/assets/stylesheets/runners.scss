@@ -31,7 +31,7 @@
 }
 /* CSS for badges */
 .round.expert {
-  background-image: url(captain_badge.gif);
+  background-image: image-url('captain_badge.gif');
   background-size: cover;
   height: 90px;
   width: 90px;
@@ -39,7 +39,7 @@
 }
 .round.expert.float{
   float:left;
-  background-image: url(captain_badge.gif);
+  background-image: image-url('captain_badge.gif');
   background-size: cover;
   height: 90px;
   width: 90px;
