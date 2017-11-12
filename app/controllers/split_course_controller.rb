@@ -55,7 +55,10 @@ class SplitCourseController < ApplicationController
     runner_splits[0] = 0
     @split_course.controls.times do |i|
       control = i+1
-      split_time = Split.where(split_runner_id: split_runner_id, control: (control)).first.current_time
+      # split_time = Split.where(split_runner_id: split_runner_id, control: (control)).first.current_time
+      split = Split.where(split_runner_id: split_runner_id, control: (control)).first
+      break if split == nil
+      split_time = split.current_time
       runner_splits[control] = split_time -fastest_splits[control]
     end
     split_time = Split.where(split_runner_id: split_runner_id, control: (FINAL_SPLIT)).first.current_time
