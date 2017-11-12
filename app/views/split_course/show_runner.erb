@@ -39,6 +39,7 @@
     <tr>
       <% @split_course.controls.times do |i| %>
         <% s = Split.where(split_runner_id: @split_runner.id, control: (i+1)).first %>
+        <% break if s == nil %>
         <td
           <% case s.current_place %>
             <%   when 1 %>
@@ -75,6 +76,7 @@
       <% @split_course.controls.times do |i| %>
         <% control = i+1 %>
         <% s = Split.where(split_runner_id: @split_runner.id, control: (control)).first %>
+        <% break if s == nil %>
         <% split_data[control] = s.time_diff %>
         <% if s.lost_time %>
           <td class = "lost_time">

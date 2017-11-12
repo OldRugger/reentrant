@@ -46,6 +46,7 @@
         <td rowspan=2 class=time><%= float_time_to_hhmmss(-r.lost_time) %></td>
         <% @split_course.controls.times do |i| %>
           <% s = Split.where(split_runner_id: r.id, control: (i+1)).first %>
+          <% break if s == nil %>
           <td
             <% case s.current_place %>
               <%   when 1 %>
@@ -88,6 +89,7 @@
       >
         <% @split_course.controls.times do |i| %>
           <% s = Split.where(split_runner_id: r.id, control: (i+1)).first %>
+          <% break if s == nil %>
           <% if s.lost_time %>
             <td class = "split lost_time">
               <span title="lost time: <%= s.time_diff_str %>" ><%= s.time_str %>(<%= s.split_place %>)</span>
