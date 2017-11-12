@@ -89,7 +89,25 @@
           <tr><td colspan = 8 >
              <%= line_chart data, library: {backgroundColor: '#ddd'}, title: "Pace" %>
           </td><tr>
+          <tr>
+            <td colspan = 8 >
+              <% @badges.each do |b| %>
+                  <div class = "round <%= b.class_type.downcase %>">
+                    <span  title = "<%= b.text %>" >
+                      <span class="season <%= b.class_type.downcase %>"><%= b.season %></span>
+                      <% if b.value %>
+                        <span class="badge letter"><%= b.value %></span>
+                      <% else %>
+                        <span class="badge letter">&nbsp</span>
+                      <% end %>
+                    </span>
+                  </div>
+              <% end %>
+            </td>
+          </tr>
+                
         </table>
+
       </td>
     </tr>
   </table>

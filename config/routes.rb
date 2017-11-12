@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   
   get 'power_rankings' => 'power_rankings#show'
   
+  post 'badges' => 'badges#create'
+  
   root :to => "calc_runs#index"
   
 end
