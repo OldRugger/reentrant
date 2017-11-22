@@ -71,12 +71,22 @@
     box-shadow: 0px 0px 0px 6px rgba(0,0,0,0.75);
 }
 
+.round.red {
+    color: red;
+    background-color: #CCC;
+    -webkit-box-shadow: 0px 0px 0px 6px red;
+    -moz-box-shadow: 0px 0px 0px 6px red;
+    box-shadow: 0px 0px 0px 6px red;
+}
 .round.green {
     color: green;
     background-color: #CCC;
     -webkit-box-shadow: 0px 0px 0px 6px green;
     -moz-box-shadow: 0px 0px 0px 6px green;
     box-shadow: 0px 0px 0px 6px green;
+}
+.round.green.float {
+  float: left;
 }
 .round.brown {
     background-color: #CCC;
@@ -106,10 +116,65 @@
   padding-top: 0px;
   font-size: 60px;
   font-weight: bold;
+  line-height: 50px;
 }
 
-        // 	<br>
-        //     <div class="round hollow gold">
-        //       <span class="season">17-18</span><br>
-        //       <span class="badge letter">E</span>
-        //     </div>
+.badge.first{
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  background: rgb(212,175,55);
+  height: 60px;
+  width: 60px;
+  -moz-border-radius:    30px;
+  -webkit-border-radius: 30px;
+  border-radius:         30px;
+  border: 2px solid #333;
+}
+.badge.second{
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  background: rgb(192,192,192);
+  height: 60px;
+  width: 60px;
+  -moz-border-radius:    30px;
+  -webkit-border-radius: 30px;
+  border-radius:         30px;
+  border: 2px solid #333;
+  
+
+}
+.badge.third{
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  background: rgb(205,127,50);
+  height: 60px;
+  width: 60px;
+  -moz-border-radius:    30px;
+  -webkit-border-radius: 30px;
+  border-radius:         30px;
+  border: 2px solid #333;
+}
+.letter.first{
+  color: #000;
+  line-height: 50px;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: serif;
+}
+.letter.second{
+  color: #000;
+  line-height: 50px;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: serif;
+}
+.letter.third{
+  color: #000;
+  line-height: 50px;
+  font-size: 60px;
+  font-weight: bold;
+  font-family: serif;
+}
