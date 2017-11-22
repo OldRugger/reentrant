@@ -1,4 +1,4 @@
-<div class=runner >
+ <div class=runner >
   <hr>
   <table>
     <tr>
@@ -91,12 +91,15 @@
           </td><tr>
           <tr>
             <td colspan = 8 >
+              <h3>Badges and Medals</h3>
               <% @badges.each do |b| %>
                   <div class = "round <%= b.class_type.downcase %>">
                     <span  title = "<%= b.text %>" >
                       <span class="season <%= b.class_type.downcase %>"><%= b.season %></span>
                       <% if b.value %>
-                        <span class="badge letter"><%= b.value %></span>
+                        <span class="badge <%= b.class_type.downcase %> <%=b.badge_type.downcase %>" >
+                          <span class="letter <%= b.class_type.downcase %> <%=b.badge_type.downcase %>"><%= b.value %></span>
+                        </span>
                       <% else %>
                         <span class="badge letter">&nbsp</span>
                       <% end %>
