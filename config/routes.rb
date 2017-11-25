@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   get 'runners/show'
 
+  get 'runners' => 'runners#index'
+
   resources :meets
   resources :calc_runs
 
