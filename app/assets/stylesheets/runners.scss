@@ -178,3 +178,30 @@
   font-weight: bold;
   font-family: serif;
 }
+.index {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.page-item.disabled .page-link {
+  background-color: #bbb;  //line changed
+}
+
+.page-link {
+  background-color: #bbb; // line changed
+}
+.firstname {
+  width: 15%;
+}
+.surname {
+  width: 15%;
+}
+.club {
+  width: 15%;
+}
+.level {
+  text-align: center;
+}
+.races {
+  text-align: center;
+}
