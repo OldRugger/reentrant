@@ -46,7 +46,7 @@
         <% @runners_as_json.each do |runner| %>
           <tr>
             <td><%= link_to runner['firstname'], runners_show_path(id: runner['id']) %></td>
-            <td><%= runner['surname'] %></td>
+            <td><%= link_to runner['surname'], runners_show_path(id: runner['id']) %></td>
             <td><%= runner['club_description'] %></td>
             <td class=level><%= runner['level'] %></td>
             <td class=races><%= runner['Red_races'] %></td>
