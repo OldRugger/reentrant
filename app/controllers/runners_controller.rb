@@ -1,6 +1,11 @@
 class RunnersController < ApplicationController
   def show
-    @calc_run = CalcRun.find(params[:calc_id])
+    calc_id = params[:calc_id]
+    if calc_id
+      @calc_run = CalcRun.find(calc_id)
+    else
+      @calc_run = CalcRun.where(publish: true).order(id: :desc).first
+    end
     @runner   = Runner.find(params[:id])
     @calc_results = CalcResult.joins(:meet, :result)
                       .select('meets.name as meet_name, meets.date as meet_date, ' +
@@ -19,17 +24,11 @@ class RunnersController < ApplicationController
   
   def index
     puts "---> runners index"
-    binding.pry
+    @search = Runner.search(params[:q])
     page = params['page'] || 1
-    per  = params['per'] || 25
-    binding.pry
     calc_run_id = CalcRun.last.id
     runner_ids = RunnerGv.where(calc_run_id: calc_run_id).all.distinct(:runner_id).pluck(:runner_id)
-    runners = Runner.select(:id, :firstname, :surname, :club_description).where(id: runner_ids).order(:surname)
-    @runners = runners.page(1).per(25)
-    respond_to do |format|
-      format.html
-      format.json { render :json => @runners }
-    end
+    @runners = @search.result.select(:id, :firstname, :surname, :club_description).where(id: runner_ids).order(:surname).page(page)
+    @runners_as_json = @runners.as_json
   end
 end

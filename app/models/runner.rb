@@ -15,9 +15,8 @@ class Runner < ActiveRecord::Base
     "#{self.firstname} #{self.surname}"
   end
   
-  def as_json(obj)
-    json = decorate_with_activity(super(obj))
-    json
+  def as_json
+    json = decorate_with_activity(super)
   end
    
   def decorate_with_activity(json)

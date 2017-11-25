@@ -14,7 +14,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require chartkick
-//= require vue
-//= require vue-resource
-//= require vuex
 //= require_tree .
