@@ -16,4 +16,20 @@ class RunnersController < ApplicationController
     @badges = Badge.where(runner_id: @runner.id).order(season: :desc).order(:sort)
 
   end
+  
+  def index
+    puts "---> runners index"
+    binding.pry
+    page = params['page'] || 1
+    per  = params['per'] || 25
+    binding.pry
+    calc_run_id = CalcRun.last.id
+    runner_ids = RunnerGv.where(calc_run_id: calc_run_id).all.distinct(:runner_id).pluck(:runner_id)
+    runners = Runner.select(:id, :firstname, :surname, :club_description).where(id: runner_ids).order(:surname)
+    @runners = runners.page(1).per(25)
+    respond_to do |format|
+      format.html
+      format.json { render :json => @runners }
+    end
+  end
 end

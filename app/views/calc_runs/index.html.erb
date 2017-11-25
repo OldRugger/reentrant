@@ -38,7 +38,8 @@
      <td class=links>
       <table >
         <tr><td><b><%= link_to 'High School Splits', split_course_index_path %></b></td></tr>
-        <tr><td><b><%= link_to 'High School Power Rankings', power_ranking_show_path(id: CalcRun.where(publish: true).last.id)  %></b> <br><br></td></tr>
+        <tr><td><b><%= link_to 'High School Power Rankings', power_ranking_show_path(id: CalcRun.where(publish: true).last.id)  %></b> </td></tr>
+        <tr><td><b><%= link_to 'All Runners', runners_path %></b> <br><br></td></tr>
         <tr><td>  ---- External Links ----  </td></tr>
         <% @links.each do |link| %>
           <tr><td><%= link_to link.label, link.url %></td></tr>

@@ -15,6 +15,26 @@ class Runner < ActiveRecord::Base
     "#{self.firstname} #{self.surname}"
   end
   
+  def as_json(obj)
+    json = decorate_with_activity(super(obj))
+    json
+  end
+   
+  def decorate_with_activity(json)
+    badges = Badge.where(runner_id: json['id'])
+    badge = badges.where(badge_type: "performance").first
+    level = badge ? badge.class_type : ""
+    json['level'] = level
+    results = Result.where(runner_id: json['id'])
+    ['Red', 'Green', 'Brown', 'Orange', 'Yellow'].each do |c|
+      count = results.where(course: c).count
+      json["#{c}_races"] = count > 0 ? count : ' '
+      count = badges.where(class_type: c, badge_type: ['First', 'Second', 'Third']).count
+      json["#{c}_medals"] = count > 0 ? count : ' '
+    end
+    json
+  end
+   
   private_class_method def self.match_runner_card_id(row, file_type)
     runner = nil
     if file_type == 'OE0014'

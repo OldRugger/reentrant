@@ -14,6 +14,8 @@ gem 'sucker_punch'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'unicorn'
+gem 'vuejs-rails'
+gem 'kaminari'
 
 group :development, :test do
   gem 'pry-nav'
