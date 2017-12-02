@@ -20,11 +20,13 @@ class Runner < ActiveRecord::Base
   end
    
   def decorate_with_activity(json)
-    badges = Badge.where(runner_id: json['id'])
+    season = APP_CONFIG[:season]
+    badges = Badge.where(runner_id: json['id'], season: season)
     badge = badges.where(badge_type: "performance").first
     level = badge ? badge.class_type : ""
     json['level'] = level
-    results = Result.where(runner_id: json['id'])
+    meets = get_season_meets(season)
+    results = Result.where(runner_id: json['id'], meet_id: meets)
     ['Red', 'Green', 'Brown', 'Orange', 'Yellow'].each do |c|
       count = results.where(course: c).count
       json["#{c}_races"] = count > 0 ? count : ' '
@@ -32,6 +34,13 @@ class Runner < ActiveRecord::Base
       json["#{c}_medals"] = count > 0 ? count : ' '
     end
     json
+  end
+   
+  def get_season_meets(season)
+    temp = season.split('/')
+    start_date = Date.new(2000+temp[0].to_i, 7, 1)
+    end_date = Date.new(2000+temp[1].to_i, 7, 1)
+    Meet.where(date: start_date..end_date).pluck(:id)
   end
    
   private_class_method def self.match_runner_card_id(row, file_type)
