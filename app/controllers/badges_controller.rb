@@ -76,7 +76,7 @@ class BadgesController < ApplicationController
       standard = 11.25
       courses << 'Brown'
     end
-    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses).all
+    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses, classifier: 0).all
     count = 0
     results.each do |r|
       pace = r.float_time/r.length
@@ -105,7 +105,7 @@ class BadgesController < ApplicationController
       standard = 13.5
       courses << 'Brown'
     end
-    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses).all
+    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses, classifier: 0).all
     count = 0
     results.each do |r|
       pace = r.float_time/r.length
@@ -134,7 +134,7 @@ class BadgesController < ApplicationController
       standard = 17
       courses << 'Brown'
     end
-    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses).all
+    results = Result.where(meet_id: @meets, runner_id: runner.id, course: courses, classifier: 0).all
     count = 0
     results.each do |r|
       pace = r.float_time/r.length
@@ -148,7 +148,6 @@ class BadgesController < ApplicationController
   end
   
   def create_navigator(runner)
-    puts "Boatswain #{runner.name} #{runner.club_description} "
     Badge.new(runner_id: runner.id, season: @season, badge_type: "performance",
               class_type: "Navigator", sort: 1, value: "N",
               text: "Navigator! The runner had at least two races meeting the 'Navigator' standard").save
