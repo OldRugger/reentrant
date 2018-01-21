@@ -236,7 +236,7 @@ class CalculateResults
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: course, 'runners.sex': gender)
                   .where("runners.club_description like '% HS'")
-                    .where('races >= 1')
+                    .where('races >= 2')
                       .order(score: :desc)
     count = results.count
     return if count == 0
@@ -275,7 +275,7 @@ class CalculateResults
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
                  .where("runners.club_description like '% HS'")
-                   .where("races >= 1")
+                   .where("races >= 2")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
       calc_schools_ranking(school, courses, ranking_class)
@@ -285,7 +285,7 @@ class CalculateResults
   def calc_schools_ranking(school, courses, ranking_class)
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: courses, 'runners.club_description': school)
-                  .where('races >= 1')
+                  .where('races >= 2')
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
                         .limit(7)

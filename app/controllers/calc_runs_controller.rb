@@ -18,7 +18,7 @@ class CalcRunsController < ApplicationController
                                  'runners.firstname, runners.surname, runners.id as runner_id, ' +
                                  'runners.club_description, runners.sex')
                           .where(calc_run_id: @calc_run.id, course: @course)
-                          .where('races >= 1')
+                          .where('races >= 2')
                             .order('runners.sex', score: :desc)
     @clubs = @runners.uniq.pluck(:club_description)
     @clubs.reject! { |c| c.to_s.empty? || c.rstrip.empty? }
