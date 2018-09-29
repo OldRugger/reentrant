@@ -16,11 +16,13 @@
       Length = <%= f.length %>, Climb = <%= f.climb %>, Controls = <%= f.controls %>
     </td></tr>
     <tr>
-      <th>Runner</th><th>Place</th><th>Classifier</th><th>Time</th><th>Gender</th>
+      <th>Runner</th><th>School</th><th>Place</th><th>Classifier</th><th>Time</th><th>Gender</th>
     </tr>
     <% @results[course].each do |r| %>
       <tr>
-        <td><%= Runner.find(r.runner_id).name %></td>
+        <% runner = Runner.find(r.runner_id) %>
+        <td><%= runner.name %>(<%= runner.id %>)</td>
+        <td><%= runner.club_description %></td>
         <td><%= r.place %></td>
         <td><%= r.classifier %></td>
         <td><%= r.time.round(3) %></td>
