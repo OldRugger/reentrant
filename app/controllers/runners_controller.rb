@@ -26,9 +26,9 @@ class RunnersController < ApplicationController
     puts "---> runners index"
     @search = Runner.search(params[:q])
     page = params['page'] || 1
-    calc_run_id = CalcRun.last.id
+    calc_run_id = CalcRun.where(publish: true).order(:id).last
     runner_ids = RunnerGv.where(calc_run_id: calc_run_id).all.distinct(:runner_id).pluck(:runner_id)
-    @runners = @search.result.select(:id, :firstname, :surname, :club_description).where(id: runner_ids).order(:surname).page(page)
+    @runners = @search.result.select(:id, :firstname, :surname, :club_description, :sex).where(id: runner_ids).order(:surname).page(page)
     @runners_as_json = @runners.as_json
   end
 end

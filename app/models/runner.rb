@@ -27,7 +27,7 @@ class Runner < ActiveRecord::Base
     json['level'] = level
     meets = get_season_meets(season)
     results = Result.where(runner_id: json['id'], meet_id: meets)
-    ['Red', 'Green', 'Brown', 'Orange', 'Yellow'].each do |c|
+    ['Green', 'Brown', 'Orange', 'Yellow'].each do |c|
       count = results.where(course: c).count
       json["#{c}_races"] = count > 0 ? count : ' '
       count = badges.where(class_type: c, badge_type: ['First', 'Second', 'Third']).count

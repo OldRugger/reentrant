@@ -29,7 +29,7 @@ class BadgesController < ApplicationController
   end
   
   def create_courses_badges(r)
-    ['Red','Green','Brown','Orange','Yellow','Sprint'].each do |course|
+    ['Green','Brown','Orange','Yellow','Sprint'].each do |course|
       create_ribbons(course, r)
       count = Result.where(meet_id: @meets, course: course, classifier: 0, runner_id: r.id).count
       if count >= 2
