@@ -22,6 +22,8 @@
           <th class="firstname" rowspan="3"><%= sort_link @search, :firstname, "First" %></th>
           <th class="surname" rowspan="3"><%= sort_link @search, :surname, "Last" %></th>
           <th class="club" rowspan="3"><%= sort_link @search, :club_description, "School" %></th>
+          <th class="gender" rowspan="3"><%= sort_link @search, :sex, "Gender" %></th>
+          
           <th colspan="11">Stats for the <%= APP_CONFIG[:season] %> season</th>
         </tr>
         <tr>
@@ -46,6 +48,7 @@
             <td><%= link_to runner['firstname'], runners_show_path(id: runner['id']) %></td>
             <td><%= link_to runner['surname'], runners_show_path(id: runner['id']) %></td>
             <td><%= runner['club_description'] %></td>
+            <td class=races><%= runner['sex'] %></td>
             <td class=level><%= runner['level'] %></td>
             <td class=races><%= runner['Green_medals'] %></td>
             <td class=races><%= runner['Brown_medals'] %></td>
