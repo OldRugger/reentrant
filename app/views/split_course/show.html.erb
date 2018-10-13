@@ -42,8 +42,16 @@
           <%= link_to runner.name, split_course_show_runner_path(id: @split_course.id, runner_id: r.runner_id) %>
           <i><%= runner.club_description %>
         </td>
-        <td rowspan=2 class=time><%= (r.speed * 100).round(2) %></td>
-        <td rowspan=2 class=time><%= float_time_to_hhmmss(-r.lost_time) %></td>
+        <td rowspan=2 class=time>
+          <% if r.speed %>
+            <%= (r.speed * 100).round(2) %>
+          <% end %>
+        </td>
+        <td rowspan=2 class=time>
+          <% if r.lost_time %>
+            <%= float_time_to_hhmmss(-r.lost_time) %>
+          <% end %>
+        </td>
         <% @split_course.controls.times do |i| %>
           <% s = Split.where(split_runner_id: r.id, control: (i+1)).first %>
           <% break if s == nil %>

@@ -66,6 +66,7 @@
         <p><%= link_to 'Home', calc_runs_path %></p>
       </td>
       <td class=runner_results>
+        <div class=results_header>2018/2019 Season Results</div>
         <table >
           <tr>
             <th>Date</th><th>Meet</th><th>Course</th><th>Length</th><th>Climb</th><th>Time<br>(Minutes)</th><th>Place</th><th>Score</th>
@@ -92,7 +93,12 @@
           <tr>
             <td colspan = 8 >
               <h3>Badges and Medals</h3>
+              <% season = nil %>
               <% @badges.each do |b| %>
+                  <% if season != b.season %>
+                     <h4><%=b.season%> Season</h4>
+                     <% season = b.season %>
+                  <% end %>
                   <div class = "round <%= b.class_type.downcase %>">
                     <span  title = "<%= b.text %>" >
                       <span class="season <%= b.class_type.downcase %>"><%= b.season %></span>

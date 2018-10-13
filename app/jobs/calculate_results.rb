@@ -9,7 +9,6 @@ class CalculateResults
     calc_results("Orange")
     calc_results("Green")
     calc_results("Brown")
-    calc_results("Red")
     normalize_scores
     create_power_rankings
     Rails.logger.info("--> calc run complete <---")
@@ -30,6 +29,7 @@ class CalculateResults
         break
       end
       Rails.logger.info("--> #{course} Pass: #{pass}, delta: #{delta}")
+      puts "#{course} Pass: #{pass}, delta: #{delta}"
     end
     # final run to update database
     @update_db = true # update runners
@@ -63,9 +63,10 @@ class CalculateResults
     total_delta / meet_cnt
   end
   
-  #calc run is based on meets for the last year
+  #For the high school league the rankings are based on a the season
+  #todo: fix this before 2100.
   def get_meets
-    Meet.where("date > ?", Date.today - 1.year)
+    Meet.where("date > ?", Date.new((2000+APP_CONFIG[:season].split('/')[0].to_i),7,1))
   end
 
   # process course results
@@ -75,7 +76,7 @@ class CalculateResults
   end
   
   def process_course_results(meet_id,course)
-    puts "process_course_results #{meet_id} #{course}"
+    puts "----process_course_results #{meet_id} #{course}"
     runner_entry = Struct.new(:runner_id, :runner_time, :result_id)
     runner_times = []
     score_list   = []
@@ -198,10 +199,12 @@ class CalculateResults
   end
   
   # for every 2 races past 4, the runner drops there lowest score.
+  # for the 18/19 season the rule is top 5 races.
   def calc_modified_average(score_list)
     sum = 0;
     calc_size = score_list.size
-    calc_size = (4 + (calc_size-4)/2) if (calc_size > 5)
+    # calc_size = (4 + (calc_size-4)/2) if (calc_size > 5)
+    calc_size = 5 if (calc_size >= 5)
 
     calc_size.times do |score|
       sum += score_list[score]
@@ -226,6 +229,7 @@ class CalculateResults
       ['M','F'].each do |gender|
         # do not include male / brown course results
         next if course == 'Brown' && gender == 'M'
+        next if course == 'Green' && gender == 'F'
         normalize_course_scores(course, gender)
       end
     end
@@ -235,7 +239,7 @@ class CalculateResults
     Rails.logger.info("--> normalize results #{course}, #{gender}")
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: course, 'runners.sex': gender)
-                  .where("runners.club_description like '% HS'")
+                  .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
                     .where('races >= 2')
                       .order(score: :desc)
     count = results.count
@@ -265,7 +269,7 @@ class CalculateResults
   def create_power_rankings
     Rails.logger.info("--> create power rankings")
     @exclude = []
-    create_power_ranking_by_class("Varsity", ['Red','Green','Brown'])
+    create_power_ranking_by_class("Varsity", ['Green','Brown'])
     create_power_ranking_by_class("Junior Varsity", ['Orange'])
     create_power_ranking_by_class("Intermediate", ['Yellow'])
   end
@@ -274,7 +278,7 @@ class CalculateResults
     Rails.logger.info("----> #{ranking_class}")
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
-                 .where("runners.club_description like '% HS'")
+                 .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
                    .where("races >= 2")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
