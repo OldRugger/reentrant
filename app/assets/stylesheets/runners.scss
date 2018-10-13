@@ -28,6 +28,11 @@
     text-align: right;
     padding-right: 10px;
   }
+  .results_header {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
 }
 /* CSS for badges */
 .round.expert {
@@ -191,13 +196,16 @@
   background-color: #bbb; // line changed
 }
 .firstname {
-  width: 15%;
+  width: 10%;
 }
 .surname {
-  width: 15%;
+  width: 10%;
 }
 .club {
-  width: 15%;
+  width: 10%;
+}
+.gender {
+  width: 10%;
 }
 .level {
   text-align: center;

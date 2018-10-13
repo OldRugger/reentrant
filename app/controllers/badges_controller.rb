@@ -29,9 +29,9 @@ class BadgesController < ApplicationController
   end
   
   def create_courses_badges(r)
-    ['Red','Green','Brown','Orange','Yellow','Sprint'].each do |course|
+    ['Green','Brown','Orange','Yellow','Sprint'].each do |course|
       create_ribbons(course, r)
-      count = Result.where(course: course, classifier: 0, runner_id: r.id).count
+      count = Result.where(meet_id: @meets, course: course, classifier: 0, runner_id: r.id).count
       if count >= 2
         create_course_badges(course, count, r)
       end
@@ -59,7 +59,7 @@ class BadgesController < ApplicationController
   def create_course_badges(course, count, runner)
     [15, 10, 5, 2].each do |c|
       if count >= c
-        puts "create badge #{course} #{c} #{runner.name}"
+        puts "create badge #{course} #{@season} #{c} #{runner.name}"
         Badge.new(runner_id: runner.id, season: @season, badge_type: 'course',
                   class_type: course, value: c, sort: c,
                   text: "Runner has completed at least #{c} #{course} courses").save!

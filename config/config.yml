@@ -1,8 +1,8 @@
 defaults: &defaults
    title:         "Reentrant - news that's fit"
    admin_pwd:     <%= ENV["ADMIN_PWD"] || 'not_very_secret' %>
-   season: "17/18"
-
+   season: "18/19"
+   
 development:
   <<: *defaults
 

@@ -39,11 +39,13 @@ class Result < ActiveRecord::Base
   end
 
   def load_result(meet_id, row, file_type)
-    runner = Runner.get_runner(row, file_type)
-    if !runner.club_description.include?(" HS")
-      puts "Skipping #{runner.name} #{runner.club_description}"
+    if !(HIGH_SCHOOL_LIST.include?(row['City']))
+      puts "ALERT ->>> High School not found: #{row['City']}" if row['City'].include?(" HS")
+      puts "Skipping #{row['First name']} #{row['Surname']} #{row['City']}"
       return false
     end
+    runner = Runner.get_runner(row, file_type)
+    put "correct runner gender #{runner.id} #{runner.sex}" unless ['M', 'F'].include?(runner.sex)
     runner_time = row['Time']
     place = file_type === 'OR' ? 'Pl' : 'Place'
     course = normalize_course(row['Course'].capitalize)
