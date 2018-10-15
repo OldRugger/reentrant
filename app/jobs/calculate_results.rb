@@ -1,3 +1,4 @@
+
 class CalculateResults
   include SuckerPunch::Job
   
@@ -77,12 +78,16 @@ class CalculateResults
   
   def process_course_results(meet_id,course)
     puts "----process_course_results #{meet_id} #{course}"
+
     runner_entry = Struct.new(:runner_id, :runner_time, :result_id)
     runner_times = []
     score_list   = []
     results = get_course_results(meet_id,course)
     puts "----- results #{results.count}"
     results.each do |result|
+      next if course == 'Brown' && Runner.find(result.runner_id).sex == 'M'
+      next if course == 'Green' && Runner.find(result.runner_id).sex == 'F'
+
       # if valid result
       if result.classifier == 0
         runner_gv    = get_runner_gv(result,course,meet_id)
