@@ -85,8 +85,12 @@ class CalculateResults
     results = get_course_results(meet_id,course)
     puts "----- results #{results.count}"
     results.each do |result|
-      next if course == 'Brown' && Runner.find(result.runner_id).sex == 'M'
-      next if course == 'Green' && Runner.find(result.runner_id).sex == 'F'
+      begin
+        next if course == 'Brown' && Runner.find(result.runner_id).sex == 'M'
+        next if course == 'Green' && Runner.find(result.runner_id).sex == 'F'
+      rescue ActiveRecord::RecordNotFound
+        # assume the user was deleted.
+      end
 
       # if valid result
       if result.classifier == 0
