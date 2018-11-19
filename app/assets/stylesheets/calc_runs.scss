@@ -32,6 +32,9 @@
   }
   td {
     vertical-align: text-top;
+    .badges {
+      text-align: center;
+    }
   }
   .course_details{
     th {
@@ -92,3 +95,9 @@
     padding-right: 20px;
   }
 }
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
