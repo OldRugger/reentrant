@@ -41,7 +41,40 @@
         <tr><td><b><%= link_to "Current GA High School Rankings", @calc_runs.first %><br><br></b></td></tr>
         <tr><td><b><%= link_to 'High School Splits', split_course_index_path %><br><br></b></td></tr>
         <tr><td><b><%= link_to 'High School Power Rankings', power_ranking_show_path(id: CalcRun.where(publish: true).last.id)  %></b> <br><br></td></tr>
-        <tr><td>  ---- External Links ----  </td></tr>
+        <tr><td><b><%= APP_CONFIG[:season] %> Performance Badges</b><td><tr>
+        <% badges = Badge.where(class_type: "Expert", season: APP_CONFIG[:season]) %>
+        <% if badges.count > 0 %>
+          <tr>
+            <td class=badges >
+              <b><i>
+                  <br>Expert
+              </i></b>
+            <td>
+          <tr>
+          <% badges.each do |b| %>
+            <% runner = Runner.find(b.runner_id) %>
+            <tr><td><%= link_to runner.name, runners_show_path(:id => runner.id) %> <i></i></td></tr>
+          <% end %>
+        <% end %>
+        <% badges = Badge.where(class_type: "Pathfinder", season: APP_CONFIG[:season]) %>
+        <% if badges.count > 0 %>
+          <tr><td class=badges ><b><i><br>Pathfinder</i></b><td><tr>
+          <% badges.each do |b| %>
+            <% runner = Runner.find(b.runner_id) %>
+            <tr><td><%= link_to runner.name, runners_show_path(:id => runner.id) %> <i></i></td></tr>
+          <% end %>
+        <% end %>
+        <% badges = Badge.where(class_type: "Navigator", season: APP_CONFIG[:season]) %>
+        <% if badges.count > 0 %>
+          <tr><td class=badges ><b><i><br>Navigator</i></b><td><tr>
+          <% badges.each do |b| %>
+            <% runner = Runner.find(b.runner_id) %>
+            <tr><td><%= link_to runner.name, runners_show_path(:id => runner.id) %> <i></i></td></tr>
+          <% end %>
+
+        <% end %>
+        
+        <tr><td><br>  ---- External Links ----  </td></tr>
         <% @links.each do |link| %>
           <tr><td><%= link_to link.label, link.url %></td></tr>
         <% end %>
