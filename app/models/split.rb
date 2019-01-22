@@ -27,7 +27,7 @@ class Split < ActiveRecord::Base
     
   def normalize_course(course)
     return 'Green' if ['Greenx','Greeny'].include?(course)
-    return 'Brown' if ['Browny'].include?(course)
+    return 'Brown' if ['Browny','Brownx'].include?(course)
     return 'Orange' if ['Orangex','Orangey'].include?(course)
     return 'Yellow' if ['Yellowx','Yellowy'].include?(course)
     course

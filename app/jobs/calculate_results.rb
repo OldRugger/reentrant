@@ -285,10 +285,12 @@ class CalculateResults
   
   def create_power_ranking_by_class(ranking_class, courses)
     Rails.logger.info("----> #{ranking_class}")
+
+    # TODO: make soft code min runs
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
                  .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
-                   .where("races >= 2")
+                   .where("races >= 4")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
       calc_schools_ranking(school, courses, ranking_class)
