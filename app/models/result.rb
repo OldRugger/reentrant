@@ -45,7 +45,7 @@ class Result < ActiveRecord::Base
       return false
     end
     runner = Runner.get_runner(row, file_type)
-    put "correct runner gender #{runner.id} #{runner.sex}" unless ['M', 'F'].include?(runner.sex)
+    puts "correct runner gender #{runner.id} #{runner.sex}" unless ['M', 'F'].include?(runner.sex)
     runner_time = row['Time']
     place = file_type === 'OR' ? 'Pl' : 'Place'
     course = normalize_course(row['Course'].capitalize)
@@ -66,10 +66,10 @@ class Result < ActiveRecord::Base
   end
   
   def normalize_course(course)
-    return 'Green' if ['Greenx','Greeny'].include?(course)
-    return 'Brown' if ['Browny'].include?(course)
-    return 'Orange' if ['Orangex','Orangey'].include?(course)
-    return 'Yellow' if ['Yellowx','Yellowy'].include?(course)
+    return 'Green' if ['Greenx','Greeny','ISVM'].include?(course)
+    return 'Brown' if ['Browny','Brownx','ISVF'].include?(course)
+    return 'Orange' if ['Orangex','Orangey','ISJVM','ISJVF'].include?(course)
+    return 'Yellow' if ['Yellowx','Yellowy','ISIM','ISIF'].include?(course)
     course
   end
 

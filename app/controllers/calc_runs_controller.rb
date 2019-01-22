@@ -13,12 +13,17 @@ class CalcRunsController < ApplicationController
     if @course == nil #default to Green
       @course = 'Green'
     end
+
+    min_runs = @calc_run.date.month < 7 ? 4 : 2
+
+    puts "min_runs: " + min_runs.to_s
+
     @runners = RunnerGv.joins(:runner)
                          .select('runner_gvs.id, runner_gvs.score, runner_gvs.races, ' +
                                  'runners.firstname, runners.surname, runners.id as runner_id, ' +
                                  'runners.club_description, runners.sex')
                           .where(calc_run_id: @calc_run.id, course: @course)
-                          .where('races >= 2')
+                          .where("races >= #{min_runs}")
                             .order('runners.sex', score: :desc)
     @clubs = @runners.uniq.pluck(:club_description)
     @clubs.reject! { |c| c.to_s.empty? || c.rstrip.empty? }
