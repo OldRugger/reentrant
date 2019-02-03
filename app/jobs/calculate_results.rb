@@ -298,9 +298,10 @@ class CalculateResults
   end
   
   def calc_schools_ranking(school, courses, ranking_class)
+    # TODO: soft code min runs
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: courses, 'runners.club_description': school)
-                  .where('races >= 2')
+                  .where('races >= 4')
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
                         .limit(7)
