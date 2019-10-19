@@ -24,7 +24,7 @@
           <th class="club" rowspan="3"><%= sort_link @search, :club_description, "School" %></th>
           <th class="gender" rowspan="3"><%= sort_link @search, :sex, "Gender" %></th>
           
-          <th colspan="11">Stats for the <%= APP_CONFIG[:season] %> season</th>
+          <th colspan="11">Stats for the <%= get_season %> season</th>
         </tr>
         <tr>
           <th rowspan="2">Level</th>

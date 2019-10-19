@@ -3,16 +3,31 @@ require 'rails_helper'
 RSpec.describe CalcRunsController, type: :controller do
   before do
     meet = Meet.create(name: 'test meet OE0014 A',
-                date: Time.now.strftime('%m/%d/%Y'))
+                date: Time.now)
     Result.import(meet.id,fixture_file_upload('test_data/OE0014.csv'))
     meet = Meet.create(name: 'test meet OE0014 B',
-                date: Time.now.strftime('%m/%d/%Y'))
+      date: Time.now)
+    Result.import(meet.id, fixture_file_upload('test_data/OE0014.csv'))
+    meet = Meet.create(name: 'test meet OE0014 C',
+      date: Time.now)
+    Result.import(meet.id, fixture_file_upload('test_data/OE0014.csv'))
+    meet = Meet.create(name: 'test meet OE0014 d',
+      date: Time.now)
     Result.import(meet.id, fixture_file_upload('test_data/OE0014.csv'))
     meet = Meet.create(name: 'test meet Or A',
-                date: Time.now.strftime('%m/%d/%Y'))
+      date: Time.now)
     Result.import(meet.id, fixture_file_upload('test_data/OR.csv'))
     meet = Meet.create(name: 'test meet Or B',
-                date: Time.now.strftime('%m/%d/%Y'))
+      date: Time.now)
+    Result.import(meet.id, fixture_file_upload('test_data/OR.csv'))
+    meet = Meet.create(name: 'test meet Or C',
+      date: Time.now)
+    Result.import(meet.id, fixture_file_upload('test_data/OR.csv'))
+    meet = Meet.create(name: 'test meet Or E',
+      date: Time.now)
+    Result.import(meet.id, fixture_file_upload('test_data/OR.csv'))
+    meet = Meet.create(name: 'test meet Or F',
+      date: Time.now)
     Result.import(meet.id, fixture_file_upload('test_data/OR.csv'))
     calc_run = CalcRun.new(status: 'in-process', date: DateTime.now.to_date )
     calc_run.save
@@ -57,20 +72,15 @@ RSpec.describe CalcRunsController, type: :controller do
       get :index
       expect(assigns(:news)).to match News.where(publish: true).all.order(id: :desc)
     end
-
   end
   
   describe 'GET #show calc_run' do
     it "should return calc run" do
       calc_run = CalcRun.last
       get :show, id: calc_run.id
-      expect(assigns(:runners)).to match RunnerGv.joins(:runner)
-                         .select('runner_gvs.id, runner_gvs.score, runner_gvs.races, ' +
-                                 'runners.firstname, runners.surname, runners.id as runner_id, ' +
-                                 'runners.club_description, runners.sex')
-                          .where(calc_run_id: calc_run.id, course: 'Red')
-                          .where('races >= 2')
-                            .order('runners.sex', score: :desc)
+     
+      expect(response.status).to eql(200)
+      expect(assigns(:clubs).last).to eql("Woodstock HS")
     end
   end
     
@@ -78,7 +88,7 @@ RSpec.describe CalcRunsController, type: :controller do
     it "should do something I'm sure" do
       calc_run = CalcRun.last
       get :show_all, id: calc_run.id
-      expect(assigns(:calc_details).last.float_time).to eql 75.53333333333333
+      expect(assigns(:calc_details).last.float_time).to eql 85.66666666666667
     end
   end
   

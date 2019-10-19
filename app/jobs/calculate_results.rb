@@ -5,17 +5,23 @@ class CalculateResults
   def perform(calc_run)
     Rails.logger.info("*********** Calc run ***************")
     @calc_run_id = calc_run.id
-    calc_results("Sprint")
-    calc_results("Yellow")
-    calc_results("Orange")
-    calc_results("Green")
-    calc_results("Brown")
+    @min_races = APP_CONFIG[:min_races]
+    @top = APP_CONFIG[:top]
+    calc_results_for_all_courses
     normalize_scores
     create_power_rankings
     Rails.logger.info("--> calc run complete <---")
   end
   
   private
+
+  def calc_results_for_all_courses
+    calc_results("Sprint")
+    calc_results("Yellow")
+    calc_results("Orange")
+    calc_results("Green")
+    calc_results("Brown")
+  end
   
   def calc_results(course)
     #Process course until average calculation delta drops below 0.5 or we exceed 15 passes
@@ -67,7 +73,7 @@ class CalculateResults
   #For the high school league the rankings are based on a the season
   #todo: fix this before 2100.
   def get_meets
-    Meet.where("date > ?", Date.new((2000+APP_CONFIG[:season].split('/')[0].to_i),7,1))
+    Meet.where("date > ?", Date.new((2000+get_season.split('/')[0].to_i),7,1))
   end
 
   # process course results
@@ -108,7 +114,6 @@ class CalculateResults
   def update_meet_course_results(meet_id, results, course_cgv, course, runner_times)
     first_time = true
     delta      = 1.0
-
     runner_times.each do |runner|
       time  = runner.runner_time
       runner_score = course_cgv/time
@@ -207,13 +212,10 @@ class CalculateResults
     end
   end
   
-  # for every 2 races past 4, the runner drops there lowest score.
-  # for the 18/19 season the rule is top 5 races.
   def calc_modified_average(score_list)
     sum = 0;
     calc_size = score_list.size
-    # calc_size = (4 + (calc_size-4)/2) if (calc_size > 5)
-    calc_size = 5 if (calc_size >= 5)
+    calc_size = 5 if (calc_size >= @top)
 
     calc_size.times do |score|
       sum += score_list[score]
@@ -249,7 +251,7 @@ class CalculateResults
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: course, 'runners.sex': gender)
                   .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
-                    .where('races >= 2')
+                    .where('races >= @min_races')
                       .order(score: :desc)
     count = results.count
     return if count == 0
@@ -290,7 +292,7 @@ class CalculateResults
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
                  .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
-                   .where("races >= 4")
+                   .where("races >= @min_races")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
       calc_schools_ranking(school, courses, ranking_class)
@@ -301,7 +303,7 @@ class CalculateResults
     # TODO: soft code min runs
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: courses, 'runners.club_description': school)
-                  .where('races >= 4')
+                  .where('races >= @min_races')
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
                         .limit(7)
