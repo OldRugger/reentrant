@@ -29,7 +29,7 @@ RSpec.describe SplitCourseController, type: :controller do
     let (:split_course) { SplitCourse.where(meet_id: meet.id, course: 'Red').first }
     it "should return the OE0014 'red' course runners" do
       get :show, id: split_course.id
-      expect(assigns(:runner_splits).count).to eql 12
+      expect(assigns(:runner_splits).count).to eql 10
     end
   end
   
@@ -38,7 +38,7 @@ RSpec.describe SplitCourseController, type: :controller do
     let (:split_course) { SplitCourse.where(meet_id: meet.id, course: 'Green').first }
     it "should return the OR 'green' course runners" do
       get :show, id: split_course.id
-      expect(assigns(:runner_splits).count).to eql 12
+      expect(assigns(:runner_splits).count).to eql 10
     end
   end
   
@@ -49,7 +49,7 @@ RSpec.describe SplitCourseController, type: :controller do
     it "should return char data" do
       get :show_runner, runner_id: runner.id, meet_id: meet.id, id: split_course.id
       expect(assigns(:chart_data).first[:name]).to eql "Chester Doe1"
-      expect(assigns(:chart_data).count).to eql 10
+      expect(assigns(:chart_data).count).to eql 8
     end
   end
   

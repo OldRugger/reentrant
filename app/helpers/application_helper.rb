@@ -47,4 +47,10 @@ module ApplicationHelper
     end
   end
 
+  def get_season
+    end_year = (Time.now + 6.months).year - 2000
+    start_year = end_year - 1
+    "#{start_year}/#{end_year}"
+  end
+  
 end

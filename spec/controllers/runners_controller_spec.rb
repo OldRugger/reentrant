@@ -25,8 +25,7 @@ RSpec.describe RunnersController, type: :controller do
     
     it "returns runners results" do
       get :show, id: runner.id, calc_id: calc_run.id
-      expect(assigns(:calc_results).first.course).to eql 'Red'
-      expect(assigns(:rankings).first.score).to eql 104.24719588262843
+      expect(assigns(:runner).firstname).to eql("Chester")
     end
   end
 

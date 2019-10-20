@@ -20,7 +20,7 @@ class Runner < ActiveRecord::Base
   end
    
   def decorate_with_activity(json)
-    season = APP_CONFIG[:season]
+    season = get_season
     badges = Badge.where(runner_id: json['id'], season: season)
     badge = badges.where(badge_type: "performance").first
     level = badge ? badge.class_type : ""
@@ -89,6 +89,7 @@ class Runner < ActiveRecord::Base
   
   #update runners club info
   private_class_method def self.update_runner(row, runner, file_type)
+    update_gender(runner, row) unless ['M', 'F'].include?(runner.sex)
     # Treat OR as an external data source
     return runner if file_type == 'OR'
     # if club changed, update runner record
@@ -100,6 +101,11 @@ class Runner < ActiveRecord::Base
       runner.save
     end
     runner
+  end
+
+  def self.update_gender(runner, row)
+    puts "updating gender for runner id #{runner.id} to #{runner.sex}"
+    runner.sex = row['s']
   end
   
 end

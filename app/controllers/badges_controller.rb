@@ -1,8 +1,7 @@
 class BadgesController < ApplicationController
 
   def create
-    puts "create badges"
-    @season = APP_CONFIG[:season]
+    @season = get_season
     @meets = get_season_meets(@season)
     create_navigation_badges
     redirect_to controller: 'admin', action: 'index'

@@ -47,8 +47,8 @@ class CalcRunsController < ApplicationController
                         .where('calc_results.calc_run_id = ?', @calc_run.id)
                           .group(:name, :date)
                             .order('meets.date DESC')
-                            
-    @meet_id = @calc_results.first.meet_id if @meet_id == nil
+                      
+    @meet_id = @calc_results.first.meet_id unless @meet_id
     
     @calc_courses = CalcResult.joins(:meet)
                       .select('course, meets.name, meets.date, meets.id as meet_id, ' +
