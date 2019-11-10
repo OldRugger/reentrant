@@ -25,7 +25,7 @@ club_abbreviations:
   HCHS:   'Henry County HS'
   EtoHS:  'Etowah HS'
   LasHS:  'Lassiter HS'
-  SwDHS:  'Southwest DeKalb HS'
+  SwDHS:  'Southwest Dekalb HS'
   LCHS:   'Lee County HS'
   TPHS:   'Terry Parker HS'
   EHHS:   'East Hall HS'
@@ -94,3 +94,7 @@ club_abbreviations:
   Middleburg: "Middleburg HS"
   WrenHS: "Wren HS"
   MoutainView: "Mountain View HS"
+  McDoHS: "McDonough HS"
+  Robertsdale: "Robertsdale HS"
+  Valdosta: "Valdosta HS"
+  Sequoyah: "Sequoyah HS"
