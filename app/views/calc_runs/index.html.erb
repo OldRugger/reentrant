@@ -37,7 +37,7 @@
      </td>
      <td class=links>
       <table >
-        <tr><td><b><%= link_to "2018-2019 Season Roster", runners_path %></b><br><br></td></tr>
+        <tr><td><b><%= link_to "2019-2020 Season Roster", runners_path %></b><br><br></td></tr>
         <tr><td><b><%= link_to "Current GA High School Rankings", @calc_runs.first %><br><br></b></td></tr>
         <tr><td><b><%= link_to 'High School Splits', split_course_index_path %><br><br></b></td></tr>
         <tr><td><b><%= link_to 'High School Power Rankings', power_ranking_show_path(id: CalcRun.where(publish: true).last.id)  %></b> <br><br></td></tr>

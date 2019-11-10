@@ -1,11 +1,13 @@
-
 class CalculateResults
   include SuckerPunch::Job
+  include ApplicationHelper
+  
   
   def perform(calc_run)
     Rails.logger.info("*********** Calc run ***************")
     @calc_run_id = calc_run.id
     @min_races = APP_CONFIG[:min_races]
+    puts " min races #{@min_races}"
     @top = APP_CONFIG[:top]
     calc_results_for_all_courses
     normalize_scores
@@ -16,7 +18,7 @@ class CalculateResults
   private
 
   def calc_results_for_all_courses
-    calc_results("Sprint")
+    calc_results("Sprint")   
     calc_results("Yellow")
     calc_results("Orange")
     calc_results("Green")
@@ -29,6 +31,7 @@ class CalculateResults
     init_globals(course)
     delta = 99.5 # init delta to high value.
     pass  = 0
+
     while (delta > 0.5) do
       pass += 1
       delta = calc_race_gv(course)
@@ -56,10 +59,11 @@ class CalculateResults
 
   # calculate race / course garliness factor
   def calc_race_gv(course)
-    # Rails.logger.info("Process course #{course}")
+    Rails.logger.info("Process course #{course}")
     total_delta = 0.0
     meet_cnt    = 0
     meets       = get_meets
+    puts "meets" 
     meets.each do |meet|
       delta = process_course(meet,course)
       next if delta == nil
@@ -251,7 +255,7 @@ class CalculateResults
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: course, 'runners.sex': gender)
                   .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
-                    .where('races >= @min_races')
+                    .where("races >= #{@min_races}")
                       .order(score: :desc)
     count = results.count
     return if count == 0
@@ -292,7 +296,7 @@ class CalculateResults
     schools = RunnerGv.joins(:runner)
                .where(calc_run_id: @calc_run_id, course: courses)
                  .where(runners: {club_description: HIGH_SCHOOL_LIST.to_a })
-                   .where("races >= @min_races")
+                   .where("races >= #{@min_races}")
                      .uniq.pluck('runners.club_description')
     schools.each do |school|
       calc_schools_ranking(school, courses, ranking_class)
@@ -303,7 +307,7 @@ class CalculateResults
     # TODO: soft code min runs
     results = RunnerGv.joins(:runner)
                 .where(calc_run_id: @calc_run_id, course: courses, 'runners.club_description': school)
-                  .where('races >= @min_races')
+                  .where("races >= #{@min_races}")
                     .where.not(normalized_score: nil, runner_id: @exclude)
                       .order(normalized_score: :desc)
                         .limit(7)
