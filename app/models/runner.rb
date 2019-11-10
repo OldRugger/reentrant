@@ -20,7 +20,7 @@ class Runner < ActiveRecord::Base
   end
    
   def decorate_with_activity(json)
-    season = get_season
+    season = APP_CONFIG[:season]
     badges = Badge.where(runner_id: json['id'], season: season)
     badge = badges.where(badge_type: "performance").first
     level = badge ? badge.class_type : ""
@@ -40,6 +40,7 @@ class Runner < ActiveRecord::Base
     temp = season.split('/')
     start_date = Date.new(2000+temp[0].to_i, 7, 1)
     end_date = Date.new(2000+temp[1].to_i, 7, 1)
+    puts "runners - get meets #{start_date}.. ##{end_date}"
     Meet.where(date: start_date..end_date).pluck(:id)
   end
    

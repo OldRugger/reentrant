@@ -14,7 +14,8 @@ class CalcRunsController < ApplicationController
       @course = 'Green'
     end
 
-    min_runs = @calc_run.date.month < 7 ? 4 : 2
+    #TODO - GET FROM CONFIG -
+    min_runs = @calc_run.date.month < 7 ? 5 : 3
 
     puts "min_runs: " + min_runs.to_s
 
